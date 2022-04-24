@@ -5,7 +5,8 @@ import Button from "./shared/Button";
 import Card from "./shared/Card";
 
 const FeedbackForm = () => {
-  const { addFeedback, feedbackEdit } = useContext(FeedbackContext);
+  const { addFeedback, feedbackEdit, updateFeedback } =
+    useContext(FeedbackContext);
 
   const [text, setText] = useState("");
   const [rating, setRating] = useState(10);
@@ -28,7 +29,14 @@ const FeedbackForm = () => {
         text,
         rating,
       };
-      addFeedback(newFeedback);
+
+      //if edit mode is enable
+      if (feedbackEdit.edit === true) {
+        updateFeedback(feedbackEdit.item.id, newFeedback);
+      } else {
+        addFeedback(newFeedback);
+      }
+
       setText("");
       setBtnDisable(true);
     }
