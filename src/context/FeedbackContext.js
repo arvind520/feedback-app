@@ -48,14 +48,28 @@ export const FeedbackProvider = ({ children }) => {
     });
   };
 
+  // Update feedback
+  const updateFeedback = (id, updItem) => {
+    setFeedback(
+      //we are using map since it will return new array
+      // spreading the old obj 1st then the new obj to overwrite the old values
+      feedback.map((item) => (item.id === id ? { ...item, ...updItem } : item))
+    );
+    setFeedbackEdit({
+      item: {},
+      edit: false,
+    });
+  };
+
   return (
     <FeedbackContext.Provider
       value={{
         feedback,
+        feedbackEdit,
         deleteHandle,
         addFeedback,
         editFeedback,
-        feedbackEdit,
+        updateFeedback,
       }}
     >
       {children}
