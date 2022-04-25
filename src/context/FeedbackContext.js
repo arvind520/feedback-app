@@ -5,9 +5,9 @@ const FeedbackContext = createContext();
 
 export const FeedbackProvider = ({ children }) => {
   const [feedback, setFeedback] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  //Fetch feedback
-
+  //!Fetch feedback
   useEffect(() => {
     fetchFeedback();
   }, []);
@@ -16,22 +16,23 @@ export const FeedbackProvider = ({ children }) => {
     const respone = await fetch(`http://localhost:5000/feedback`);
     const data = await respone.json();
     setFeedback(data);
+    setIsLoading(false);
   };
 
-  // Delete Feedback
+  //! Delete Feedback
   const deleteHandle = (id) => {
     if (window.confirm("Are you sure want to delete?")) {
       setFeedback(feedback.filter((item) => item.id !== id));
     }
   };
 
-  //Add feedback
+  //! Add feedback
   const addFeedback = (newFeedback) => {
     newFeedback.id = uuidv4();
     setFeedback([newFeedback, ...feedback]);
   };
 
-  //Edit feedback
+  //! Edit feedback
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
     edit: false,
@@ -44,7 +45,7 @@ export const FeedbackProvider = ({ children }) => {
     });
   };
 
-  // Update feedback
+  //! Update feedback
   const updateFeedback = (id, updItem) => {
     setFeedback(
       //we are using map since it will return new array
@@ -62,6 +63,7 @@ export const FeedbackProvider = ({ children }) => {
       value={{
         feedback,
         feedbackEdit,
+        isLoading,
         deleteHandle,
         addFeedback,
         editFeedback,
