@@ -1,3 +1,13 @@
+
+/*
+What I have learned from this project?
+- React Basic
+- How JSX changes to JS
+- React Hooks: State, useEffect, useContext
+- JSON server
+- How to implement react-router-dom
+- Link
+*/
 import "./index.css";
 import Header from "./components/Header";
 
